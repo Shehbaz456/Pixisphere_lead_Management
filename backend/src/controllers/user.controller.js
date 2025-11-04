@@ -3,6 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import User  from "../models/User.model.js";
 import jwt from "jsonwebtoken";
+import ms from "ms";
 
 const generateAccessAndRefereshTokens = async (userId) => {
     try {
@@ -106,11 +107,12 @@ const loginUser = asyncHandler(async (req, res) => {
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
     };
+    
 
     return res
         .status(200)
-        .cookie("accessToken", accessToken, {...options,maxAge:process.env.ACCESS_TOKEN_EXPIRY})
-        .cookie("refreshToken", refreshToken,{...options,maxAge:process.env.REFRESH_TOKEN_EXPIRY})
+        .cookie("accessToken", accessToken, {...options,maxAge: ms(process.env.ACCESS_TOKEN_EXPIRY)})
+        .cookie("refreshToken", refreshToken,{...options,maxAge: ms(process.env.REFRESH_TOKEN_EXPIRY)})
         .json(
             new ApiResponse(
                 200,
@@ -144,8 +146,8 @@ const logoutUser = asyncHandler(async (req, res) => {
     };
     return res
         .status(200)
-        .clearCookie("accessToken", {...options,maxAge:process.env.ACCESS_TOKEN_EXPIRY})
-        .clearCookie("refreshToken",{...options,maxAge:process.env.REFRESH_TOKEN_EXPIRY})
+        .clearCookie("accessToken", {...options,maxAge: ms(process.env.ACCESS_TOKEN_EXPIRY)})
+        .clearCookie("refreshToken",{...options,maxAge: ms(process.env.REFRESH_TOKEN_EXPIRY)})
         .json(new ApiResponse(200, {}, "User logged Out"));
 });
 
@@ -189,8 +191,8 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 
         return res
             .status(200)
-            .cookie("accessToken", accessToken, {...options,maxAge:process.env.ACCESS_TOKEN_EXPIRY})
-            .cookie("refreshToken", newrefreshToken,{...options,maxAge:process.env.REFRESH_TOKEN_EXPIRY})
+            .cookie("accessToken", accessToken, {...options,maxAge: ms(process.env.ACCESS_TOKEN_EXPIRY)})
+            .cookie("refreshToken", newrefreshToken,{...options,maxAge: ms(process.env.REFRESH_TOKEN_EXPIRY)})
             .json(
                 new ApiResponse(
                     200,
@@ -270,8 +272,8 @@ const verifyOTP = asyncHandler(async (req, res) => {
   
   return res
     .status(200)
-    .cookie("accessToken", accessToken, { ...options,maxAge:process.env.ACCESS_TOKEN_EXPIRY})
-    .cookie("refreshToken", refreshToken, { ...options, maxAge: process.env.REFRESH_TOKEN_EXPIRY })
+    .cookie("accessToken", accessToken, {...options,maxAge: ms(process.env.ACCESS_TOKEN_EXPIRY)})
+    .cookie("refreshToken", refreshToken,{...options,maxAge: ms(process.env.REFRESH_TOKEN_EXPIRY)})
     .json(
       new ApiResponse(
         200,
