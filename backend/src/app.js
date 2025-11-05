@@ -18,12 +18,15 @@ app.use(cookieParser())
 // Router import
 import userRouter from "./routes/user.routes.js";
 import healthcheckRouter from "./routes/healthcheck.routes.js";
+import partnerRouter from "./routes/partner.routes.js";
+import inquiryRouter from "./routes/inquiry.routes.js";
 import { errorHandler } from "./middlewares/errorHandler.js"; 
 
 // Routers declaration
 app.use("/api/healthcheck", healthcheckRouter);
 app.use("/api/auth",userRouter);
-
+app.use("/api/partner", partnerRouter);
+app.use("/api/inquiry", inquiryRouter);
 
 
 // 404 handler
