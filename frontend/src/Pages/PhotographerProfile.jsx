@@ -18,6 +18,7 @@ import {
   ArrowBack,
 } from '@mui/icons-material';
 
+const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
 
 const PhotographerProfile = () => {
   const { id } = useParams(); // Get ID from URL
@@ -38,7 +39,9 @@ const PhotographerProfile = () => {
       try {
         setLoading(true);
         console.log('Fetching photographer with ID:', id);
-        const response = await fetch(`http://localhost:3001/photographers/${id}`);
+        // ✅ CHANGE THIS LINE - Use baseUrl instead of hardcoded URL
+        const response = await fetch(`${baseUrl}/photographers/${id}`);
+        // const response = await fetch(`http://localhost:3001/photographers/${id}`);
         
         if (!response.ok) {
           throw new Error('Photographer not found');
