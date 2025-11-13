@@ -5,17 +5,17 @@ import {
   getInquiryById,
   updateInquiryStatus,
   deleteInquiry,
-  getInquiryStats
+  getInquiryStats,
 } from "../controllers/inquiry.controller.js";
 import { verifyToken, checkRole } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-// All routes require authentication and client and admin role
+// All routes require authentication and client role
 router.use(verifyToken);
-router.use(checkRole(['client', 'admin']));
+router.use(checkRole(["client"]));
 
-// Inquiry CRUD routes
+// Inquiry routes
 router.post("/", createInquiry);
 router.get("/", getClientInquiries);
 router.get("/stats", getInquiryStats);
