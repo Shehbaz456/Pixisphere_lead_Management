@@ -9,7 +9,7 @@ import {
   addPortfolioItem,
   getPartnerPortfolio,
   updatePortfolioItem,
-  deletePortfolioItem
+  deletePortfolioItem,
 } from "../controllers/partner.controller.js";
 import { verifyToken, checkRole } from "../middlewares/auth.middleware.js";
 
@@ -17,9 +17,9 @@ const router = express.Router();
 
 // All routes require authentication and partner role
 router.use(verifyToken);
-router.use(checkRole(['partner']));
+router.use(checkRole(["partner"]));
 
-// partner profile routes
+// Partner profile routes
 router.post("/onboard", onboardPartner);
 router.get("/profile", getPartnerProfile);
 router.put("/profile", updatePartnerProfile);
