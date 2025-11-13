@@ -1,9 +1,9 @@
 import express from "express";
 import {
   getDashboardStats,getPendingVerifications,verifyPartner,
-  getAllReviews, moderateReview, deleteReview,
-  getAllCategories, createCategory, updateCategory, deleteCategory,
-  getAllLocations, createLocation, updateLocation,deleteLocation
+  getAllReviews,moderateReview,deleteReview,
+  getAllCategories,createCategory,updateCategory,deleteCategory,
+  getAllLocations,createLocation,updateLocation,deleteLocation,
 } from "../controllers/admin.controller.js";
 import { verifyToken, checkRole } from "../middlewares/auth.middleware.js";
 
@@ -11,7 +11,7 @@ const router = express.Router();
 
 // All routes require authentication and admin role
 router.use(verifyToken);
-router.use(checkRole(['admin']));
+router.use(checkRole(["admin"]));
 
 // Dashboard stats
 router.get("/stats", getDashboardStats);
